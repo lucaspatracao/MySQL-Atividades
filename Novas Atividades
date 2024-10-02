@@ -1,0 +1,66 @@
+-- Questão 1.
+
+SELECT * FROM departamento
+WHERE qtdfuncionariosdepto > 15;
+
+-- Questão 2.
+
+SELECT * FROM funcionario
+WHERE salario >= 15000.00;
+
+-- Questão 3.
+
+SELECT AVG(salario)
+FROM funcionario;
+
+-- Questão 4.
+
+SELECT ROUND(AVG(salario), 2) 
+FROM funcionario;
+
+-- Questão 5.
+
+SELECT * FROM funcionário
+WHERE nome_funcionario LIKE '%Gomes%';
+
+-- Questão 6.
+
+SELECT nome_funcionario, (salario * 12) AS Total 
+FROM funcionario;
+
+-- Questão 7.
+
+SELECT codfuncionario, nome_funcionario, salario 
+FROM funcionario 
+WHERE salario = (SELECT MAX(salario) FROM funcionario);
+
+-- Questão 8.
+
+SELECT codfuncionario, nome_funcionario, salario 
+FROM funcionario 
+ORDER BY salario DESC 
+LIMIT 2;
+
+-- Questão 9.
+
+SELECT codfuncionario, nome_funcionario, data_admissao 
+FROM funcionario 
+WHERE data_admissao = (SELECT MIN(data_admissao) FROM funcionario);
+
+-- Questão 10.
+
+SELECT DISTINCT codfuncionario, nome_funcionario, cargo, salario
+FROM funcionario 
+WHERE salario > 5000;
+
+-- Questão 11.
+
+SELECT DISTINCT codfuncionario, nome_funcionario, cargo, salario
+FROM funcionario 
+WHERE salario > (SELECT AVG(salario) FROM funcionario);
+
+-- Questão 12.
+
+SELECT DISTINCT codfuncionario, nome_funcionario, cargo
+FROM funcionario 
+WHERE nome_funcionario LIKE '%Costa%';
