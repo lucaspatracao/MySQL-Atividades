@@ -1,0 +1,63 @@
+-- Questão 1
+SELECT nome_funcionario
+FROM funcionario
+WHERE sigla_depto IN (
+    SELECT sigla_depto
+    FROM departamento
+    WHERE nome_depto LIKE '%Recursos Humanos%'
+);
+
+-- Questão 2
+SELECT DISTINCT nome_funcionario
+FROM funcionario
+WHERE codfuncionario IN (
+    SELECT codfuncionario
+    FROM projeto
+    WHERE sigla_depto IN ('MKT', 'HR')
+);
+
+-- Questão 3
+SELECT nome_depto, (
+    SELECT SUM(salario)
+    FROM funcionario
+    WHERE funcionario.sigla_depto = departamento.sigla_depto
+) AS total_salarios
+FROM departamento;
+
+-- Questão 4
+SELECT nome_funcionario
+FROM funcionario
+WHERE sigla_depto = 'IT' AND salario > (
+    SELECT AVG(salario)
+    FROM funcionario
+    WHERE sigla_depto = 'IT'
+);
+
+-- Questão 5
+SELECT nome_depto, (
+    SELECT COUNT(codfuncionario)
+    FROM funcionario
+    WHERE funcionario.sigla_depto = departamento.sigla_depto
+) AS qtd_funcionarios
+FROM departamento;
+
+-- Questão 6
+SELECT nome_funcionario
+FROM funcionario
+WHERE salario > (
+    SELECT AVG(salario)
+    FROM funcionario
+    WHERE sigla_depto = 'HR'
+) AND codfuncionario IN (
+    SELECT codfuncionario
+    FROM projeto
+    WHERE sigla_depto = 'HR'
+);
+
+-- Questão 7
+SELECT nome_depto, (
+    SELECT GROUP_CONCAT(nome_funcionario SEPARATOR ', ')
+    FROM funcionario
+    WHERE funcionario.sigla_depto = departamento.sigla_depto
+) AS funcionarios
+FROM departamento;
